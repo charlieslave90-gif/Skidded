@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>ROBUX GEN • ADVANCED GENERATOR</title>
+  <!-- Font Awesome & Google Fonts -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 30% 10%, #0a0c14, #020408);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated particle background */
+    .particle-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .particle {
+      position: absolute;
+      background: rgba(46, 204, 113, 0.35);
+      border-radius: 50%;
+      filter: blur(4px);
+      animation: floatParticle linear infinite;
+    }
+    @keyframes floatParticle {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      12% { opacity: 0.6; }
+      88% { opacity: 0.5; }
+      100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Main glass card */
+    .card {
+      position: relative;
+      z-index: 20;
+      background: rgba(12, 16, 24, 0.92);
+      backdrop-filter: blur(16px);
+      border-radius: 2.5rem;
+      border: 1px solid rgba(46, 204, 113, 0.35);
+      width: 100%;
+      max-width: 480px;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 30px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(46,204,113,0.2);
+      transition: transform 0.2s;
+    }
+
+    .hidden { display: none !important; }
+
+    h2, h1 {
+      letter-spacing: -0.3px;
+    }
+    h2 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      color: #2ecc71;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+
+    .input-label {
+      display: block;
+      text-align: left;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #ccd6f0;
+      text-transform: uppercase;
+      margin: 1rem 0 0.5rem 0.2rem;
+      letter-spacing: 0.5px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 18px;
+      background: #0b0f18;
+      border: 1.5px solid #2a2e3c;
+      border-radius: 1.3rem;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 500;
+      outline: none;
+      transition: all 0.2s;
+    }
+    input[type="text"]:focus {
+      border-color: #2ecc71;
+      box-shadow: 0 0 12px rgba(46,204,113,0.4);
+    }
+
+    /* Platform grid */
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 1rem 0 1.8rem;
+    }
+    .platform-grid input { display: none; }
+    .platform-grid label {
+      background: #0b0f18;
+      padding: 14px 0;
+      border-radius: 1.2rem;
+      text-align: center;
+      cursor: pointer;
+      border: 1.5px solid #2a2e3c;
+      transition: all 0.2s ease;
+    }
+    .platform-grid label i {
+      font-size: 1.6rem;
+      color: #9aa4bf;
+      transition: 0.2s;
+    }
+    .platform-grid input:checked + label {
+      border-color: #2ecc71;
+      background: #1e2a24;
+      box-shadow: 0 0 12px #2ecc7140;
+      transform: scale(0.97);
+    }
+    .platform-grid input:checked + label i {
+      color: #2ecc71;
+      text-shadow: 0 0 5px #2ecc71;
+    }
+
+    /* Coin buttons */
+    .coin-btn {
+      background: #0b0f18;
+      padding: 1rem;
+      margin: 0.7rem 0;
+      border-radius: 1.5rem;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #f0f3fc;
+      border: 1.5px solid #2a2e3c;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .coin-btn i {
+      font-size: 1.3rem;
+      color: #ffd966;
+    }
+    .coin-btn.selected {
+      background: linear-gradient(115deg, #17221c, #0f1813);
+      border-color: #2ecc71;
+      color: #2ecc71;
+      box-shadow: 0 5px 14px rgba(46,204,113,0.25);
+    }
+
+    .main-btn {
+      width: 100%;
+      background: linear-gradient(95deg, #2ecc71, #1f9a55);
+      border: none;
+      padding: 1rem;
+      border-radius: 2rem;
+      font-weight: 800;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #0a0f0f;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+    }
+    .main-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+      box-shadow: 0 12px 22px rgba(46,204,113,0.3);
+    }
+
+    /* LOADING SECTION with PROGRESS BAR & COUNTER */
+    .progress-container {
+      background: #11161f;
+      border-radius: 60px;
+      padding: 4px;
+      margin: 1.8rem 0 1.2rem;
+      border: 1px solid #2a2e3c;
+    }
+    .progress-bar {
+      height: 12px;
+      width: 0%;
+      background: linear-gradient(90deg, #2ecc71, #7ef0a3);
+      border-radius: 60px;
+      transition: width 0.08s linear;
+      box-shadow: 0 0 8px #2ecc71;
+    }
+    .robux-counter {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #e9f5ef, #bef5d4);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 1rem 0 0.5rem;
+      letter-spacing: 2px;
+    }
+    .status-message {
+      text-align: center;
+      color: #b9c7db;
+      font-weight: 500;
+      background: #0e121c80;
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      backdrop-filter: blur(4px);
+      display: inline-block;
+      width: auto;
+      margin: 0 auto;
+    }
+    .loading-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: #8e9bb5;
+      margin: 8px 12px 0;
+    }
+
+    /* Step 3 group verification (only join group, no "I've joined" button) */
+    .verify-group-btn {
+      background: #121724;
+      border: 1.8px solid #2ecc71;
+      color: #2ecc71;
+      font-weight: 800;
+      padding: 1rem;
+      border-radius: 2rem;
+      width: 100%;
+      margin: 1rem 0;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 1rem;
+    }
+    .verify-group-btn i { font-size: 1.3rem; }
+    .verify-group-btn:hover {
+      background: #2ecc7122;
+      transform: scale(0.98);
+      border-color: #6ef0a0;
+    }
+    .group-link-badge {
+      background: #00000066;
+      padding: 10px;
+      border-radius: 60px;
+      font-size: 0.7rem;
+      text-align: center;
+      word-break: break-all;
+      margin-top: 1rem;
+      color: #b9c7dd;
+      backdrop-filter: blur(4px);
+    }
+    #c-display, #u-display {
+      font-weight: 800;
+      background: linear-gradient(145deg, #2ecc71, #a3f0bc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    hr {
+      border-color: #2ecc7122;
+      margin: 1rem 0;
+    }
+    .glow-text {
+      text-align: center;
+      font-size: 0.7rem;
+      margin-top: 14px;
+      color: #8f9bb3;
+    }
+    .roblox-icon-badge {
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      background: #1a2620;
+      padding: 4px 14px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      color: #2ecc71;
+      border: 1px solid #2ecc7155;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="particle-bg" id="particleContainer"></div>
+<div class="card">
+  <div class="roblox-icon-badge"><i class="fab fa-roblox"></i> ROBLOX VAULT</div>
+  
+  <!-- STEP 1 - USER DETAILS -->
+  <div id="step-1">
+    <h2><i class="fas fa-dragon" style="margin-right: 8px;"></i> ROBUX GENERATOR</h2>
+    <label class="input-label"><i class="fas fa-user"></i> ROBLOX USERNAME</label>
+    <input type="text" id="username" placeholder="EpicGamer123" autocomplete="off">
+    <label class="input-label"><i class="fas fa-gamepad"></i> PLATFORM</label>
+    <div class="platform-grid">
+      <input type="radio" name="plat" id="p1" value="android"><label for="p1"><i class="fab fa-android"></i></label>
+      <input type="radio" name="plat" id="p2" value="ios"><label for="p2"><i class="fab fa-apple"></i></label>
+      <input type="radio" name="plat" id="p3" value="windows"><label for="p3"><i class="fab fa-windows"></i></label>
+      <input type="radio" name="plat" id="p4" value="xbox"><label for="p4"><i class="fab fa-xbox"></i></label>
+    </div>
+    <button class="main-btn" id="continueBtn"><i class="fas fa-arrow-right"></i> CONTINUE →</button>
+  </div>
+
+  <!-- STEP 2 - SELECT AMOUNT -->
+  <div id="step-2" class="hidden">
+    <h2><i class="fas fa-coins"></i> SELECT ROBUX AMOUNT</h2>
+    <div class="coin-btn" data-amount-num="1000" data-amount-display="1,000 R$"><i class="fas fa-gem"></i> 1,000 R$</div>
+    <div class="coin-btn" data-amount-num="2000" data-amount-display="2,000 R$"><i class="fas fa-gem"></i> 2,000 R$</div>
+    <div class="coin-btn" data-amount-num="3000" data-amount-display="3,000 R$"><i class="fas fa-crown"></i> 3,000 R$</div>
+    <div class="coin-btn" data-amount-num="4000" data-amount-display="4,000 R$"><i class="fas fa-crown"></i> 4,000 R$</div>
+    <button class="main-btn" id="confirmCoinBtn"><i class="fas fa-bolt"></i> GENERATE ROBUX</button>
+  </div>
+
+  <!-- LOADING SCREEN: DYNAMIC PROGRESS BAR + ANIMATED COUNTER 1 -> TARGET -->
+  <div id="step-loading" class="hidden">
+    <h2><i class="fas fa-sync-alt fa-spin"></i> GENERATING ROBUX</h2>
+    <div class="robux-counter" id="animatedRobuxCounter">0</div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressFill"></div>
+    </div>
+    <div class="loading-stats">
+      <span><i class="fas fa-tachometer-alt"></i> <span id="progressPercent">0</span>%</span>
+      <span><i class="fas fa-clock"></i> SECURE CHANNEL</span>
+    </div>
+    <p class="status-message" id="dynamicStatusMsg"><i class="fas fa-spinner fa-pulse"></i> Initializing secure engine...</p>
+  </div>
+
+  <!-- STEP 3 - FINAL: ONLY JOIN GROUP BUTTON + INFO (NO I'VE JOINED BUTTON) -->
+  <div id="step-3" class="hidden">
+    <h1 style="color:#2ecc71; font-size: 1.7rem; text-align:center; margin-bottom: 0.5rem;"><i class="fas fa-users"></i> VERIFICATION</h1>
+    <p style="line-height: 1.5; margin: 1rem 0; color:#e2e8f5;">
+      <i class="fas fa-check-circle" style="color:#2ecc71;"></i> Hello <b id="u-display" style="color:#bef5d4;"></b>, your <b id="c-display" style="color:#bef5d4;"></b> are ready.<br>
+      ⚠️ To complete the process and receive robux, join our official Roblox group.
+    </p>
+    <button id="joinGroupBtn" class="verify-group-btn"><i class="fab fa-discord"></i> JOIN OFFICIAL GROUP →</button>
+    <div class="group-link-badge">
+      <i class="fas fa-link"></i> roblox.com/communities/582408064<br>
+      <span style="font-size:0.65rem;">Membership grants instant robux + exclusive badge</span>
+    </div>
+    <div class="glow-text" style="margin-top: 20px;">
+      ✅ After joining, robux will be injected automatically into your account (verified member bonus)
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---------- Particle background ----------
+  function initParticles() {
+    const container = document.getElementById('particleContainer');
+    for (let i = 0; i < 55; i++) {
+      let p = document.createElement('div');
+      p.classList.add('particle');
+      let s = Math.random() * 12 + 3;
+      p.style.width = s + 'px';
+      p.style.height = s + 'px';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = Math.random() * 9 + 6 + 's';
+      p.style.animationDelay = Math.random() * 12 + 's';
+      p.style.opacity = Math.random() * 0.5 + 0.2;
+      container.appendChild(p);
+    }
+  }
+  initParticles();
+
+  // DOM references
+  const step1 = document.getElementById('step-1');
+  const step2 = document.getElementById('step-2');
+  const stepLoading = document.getElementById('step-loading');
+  const step3 = document.getElementById('step-3');
+  const usernameInput = document.getElementById('username');
+  const continueBtn = document.getElementById('continueBtn');
+  const confirmCoinBtn = document.getElementById('confirmCoinBtn');
+  const joinGroupBtn = document.getElementById('joinGroupBtn');
+
+  let selectedCoinBtn = null;
+  let targetRobuxAmount = 0;      // numeric target (1000,2000,etc)
+  let targetDisplay = '';
+  let storedUsername = '';
+
+  // platform validation
+  function isPlatformSelected() {
+    return document.querySelector('input[name="plat"]:checked') !== null;
+  }
+
+  // Step 1 -> Step 2
+  continueBtn.addEventListener('click', () => {
+    const username = usernameInput.value.trim();
+    if (!username) {
+      alert('⚡ Enter your Roblox username!');
+      return;
+    }
+    if (!isPlatformSelected()) {
+      alert('🎮 Please select your gaming platform.');
+      return;
+    }
+    storedUsername = username;
+    step1.style.transition = 'opacity 0.2s';
+    step1.style.opacity = '0';
+    setTimeout(() => {
+      step1.classList.add('hidden');
+      step2.classList.remove('hidden');
+      step2.style.animation = 'fadeSlideUp 0.4s ease';
+      step2.style.opacity = '1';
+      step1.style.opacity = '';
+    }, 180);
+  });
+
+  // Coin selection (improved)
+  const coinButtons = document.querySelectorAll('.coin-btn');
+  coinButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (selectedCoinBtn) selectedCoinBtn.classList.remove('selected');
+      this.classList.add('selected');
+      selectedCoinBtn = this;
+      targetRobuxAmount = parseInt(this.getAttribute('data-amount-num'), 10);
+      targetDisplay = this.getAttribute('data-amount-display') || this.innerText.trim();
+    });
+  });
+
+  // --- ANIMATED COUNTER + PROGRESS BAR (1 to targetRobuxAmount) ---
+  async function startLoadingAnimationWithCounter(finalAmount) {
+    return new Promise((resolve) => {
+      const counterElem = document.getElementById('animatedRobuxCounter');
+      const progressFill = document.getElementById('progressFill');
+      const percentSpan = document.getElementById('progressPercent');
+      const statusMsgElem = document.getElementById('dynamicStatusMsg');
+      
+      // reset UI
+      counterElem.innerText = '0';
+      progressFill.style.width = '0%';
+      percentSpan.innerText = '0';
+      
+      let currentValue = 0;
+      const steps = Math.min(finalAmount, 180);  // smooth steps
+      const increment = finalAmount / steps;
+      let stepIndex = 0;
+      
+      // dynamic status messages
+      const statusMessages = [
+        "🔐 Establishing secure gateway...",
+        "📡 Bypassing firewall...",
+        "⚙️ Injecting Roblox API tokens...",
+        "💎 Generating R$ stream...",
+        "✨ Encrypting transaction...",
+        "🚀 Adding funds to wallet..."
+      ];
+      let msgIdx = 0;
+      
+      const interval = setInterval(() => {
+        if (stepIndex < steps) {
+          stepIndex++;
+          let newVal = Math.min(Math.floor(increment * stepIndex), finalAmount);
+          currentValue = newVal;
+          counterElem.innerText = currentValue.toLocaleString();
+          const percent = Math.floor((currentValue / finalAmount) * 100);
+          progressFill.style.width = percent + '%';
+          percentSpan.innerText = percent;
+          
+          // change status message occasionally
+          if (stepIndex % Math.floor(steps / statusMessages.length) === 0 && msgIdx < statusMessages.length) {
+            statusMsgElem.innerHTML = `<i class="fas fa-cogs fa-fw"></i> ${statusMessages[msgIdx]}`;
+            msgIdx++;
+          }
+        } else {
+          // ensure final value
+          counterElem.innerText = finalAmount.toLocaleString();
+          progressFill.style.width = '100%';
+          percentSpan.innerText = '100';
+          statusMsgElem.innerHTML = '<i class="fas fa-check-circle"></i> Generation complete! Redirecting...';
+          clearInterval(interval);
+          setTimeout(() => resolve(), 800);
+        }
+      }, 35);
+    });
+  }
+
+  // Step 2 -> Loading with progress & counter -> Step 3 (group only)
+  confirmCoinBtn.addEventListener('click', async () => {
+    if (!selectedCoinBtn) {
+      alert('🎁 Please select a robux amount!');
+      return;
+    }
+    if (!storedUsername) {
+      storedUsername = usernameInput.value.trim();
+      if(!storedUsername) { alert('Username required'); return; }
+    }
+    
+    // transition to loading screen
+    step2.style.opacity = '0';
+    setTimeout(async () => {
+      step2.classList.add('hidden');
+      stepLoading.classList.remove('hidden');
+      stepLoading.style.animation = 'fadeSlideUp 0.3s';
+      
+      // start animated counter and progress bar from 0 -> targetRobuxAmount
+      await startLoadingAnimationWithCounter(targetRobuxAmount);
+      
+      // loading done, go to step3 (group verification)
+      stepLoading.classList.add('hidden');
+      step3.classList.remove('hidden');
+      step3.style.animation = 'fadeSlideUp 0.45s';
+      
+      // fill user details in step3
+      document.getElementById('u-display').innerText = storedUsername;
+      document.getElementById('c-display').innerText = targetDisplay;
+    }, 200);
+  });
+
+  // JOIN GROUP BUTTON - opens exact group (no "I've joined" button)
+  joinGroupBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    // exact link from requirements: https://roblox.com.ge/communities/582408064/
+    window.open("https://roblox.com.ge/communities/582408064/", "_blank");
+    joinGroupBtn.innerHTML = '<i class="fas fa-check-circle"></i> GROUP OPENED • VERIFY MEMBERSHIP';
+    joinGroupBtn.style.background = "#1e3a2e";
+    setTimeout(() => {
+      joinGroupBtn.innerHTML = '<i class="fab fa-discord"></i> JOIN OFFICIAL Roblox GROUP →';
+      joinGroupBtn.style.background = "";
+    }, 2500);
+    
+    // optional: small success toast for group requirement
+    const toast = document.createElement('div');
+    toast.innerText = `✅ Join the group to instantly receive ${targetDisplay} to ${storedUsername}`;
+    toast.style.position = 'fixed';
+    toast.style.bottom = '20px';
+    toast.style.left = '50%';
+    toast.style.transform = 'translateX(-50%)';
+    toast.style.backgroundColor = '#1f2c24';
+    toast.style.backdropFilter = 'blur(12px)';
+    toast.style.border = '1px solid #2ecc71';
+    toast.style.borderRadius = '50px';
+    toast.style.padding = '12px 24px';
+    toast.style.color = '#e0ffe6';
+    toast.style.fontWeight = 'bold';
+    toast.style.zIndex = '999';
+    toast.style.fontSize = '0.85rem';
+    toast.style.boxShadow = '0 0 20px #2ecc7166';
+    toast.style.animation = 'fadeSlideUp 0.3s';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3800);
+  });
+
+  // Additional style & readability fixes (text contrast already improved)
+  const styleAdd = document.createElement('style');
+  styleAdd.textContent = `
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .coin-btn, .main-btn, .verify-group-btn {
+      transition: all 0.2s cubic-bezier(0.2, 0.85, 0.4, 1);
+    }
+    .robux-counter {
+      text-shadow: 0 0 5px #2ecc7140;
+    }
+    .status-message i {
+      margin-right: 6px;
+    }
+    #step-3 p, .group-link-badge, .glow-text {
+      color: #e2edff !important;
+    }
+    .group-link-badge {
+      background: #0b0f18cc;
+    }
+    input, .coin-btn, .platform-grid label {
+      color: white;
+    }
+    .card {
+      background: rgba(10, 14, 22, 0.96);
+    }
+  `;
+  document.head.appendChild(styleAdd);
+  
+  // Additional fallback for text readability: Force all text in card visible
+  const allText = document.querySelectorAll('.card p, .card div, .card span, .card label, .card h2');
+  allText.forEach(el => {
+    if(el.style.color === '') el.style.color = '#f0f4ff';
+  });
+</script>
+</body>
+</html>
