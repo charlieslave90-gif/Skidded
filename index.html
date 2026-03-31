@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>ROBUX GEN • ADVANCED GENERATOR</title>
-  <!-- Font Awesome & Google Fonts -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <title>ROBUX GENERATOR • ROBLOX VAULT</title>
+  <!-- Font Awesome 6 + Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -16,239 +16,315 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at 30% 10%, #0a0c14, #020408);
+      background: #0c0f17;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 1.5rem;
       position: relative;
-      overflow-x: hidden;
     }
 
-    /* Animated particle background */
-    .particle-bg {
+    /* dark gradient background */
+    .bg-gradient {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
+      background: radial-gradient(circle at 30% 20%, #141a24, #07090e);
       z-index: 0;
     }
-    .particle {
-      position: absolute;
-      background: rgba(46, 204, 113, 0.35);
-      border-radius: 50%;
-      filter: blur(4px);
-      animation: floatParticle linear infinite;
-    }
-    @keyframes floatParticle {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      12% { opacity: 0.6; }
-      88% { opacity: 0.5; }
-      100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
-    }
 
-    /* Main glass card */
+    /* main card - clean modern design */
     .card {
       position: relative;
-      z-index: 20;
-      background: rgba(12, 16, 24, 0.92);
-      backdrop-filter: blur(16px);
-      border-radius: 2.5rem;
-      border: 1px solid rgba(46, 204, 113, 0.35);
+      z-index: 30;
+      background: #12161f;
+      border-radius: 32px;
       width: 100%;
-      max-width: 480px;
-      padding: 2rem 1.8rem;
-      box-shadow: 0 30px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(46,204,113,0.2);
+      max-width: 520px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
+      overflow: hidden;
       transition: transform 0.2s;
     }
 
-    .hidden { display: none !important; }
-
-    h2, h1 {
-      letter-spacing: -0.3px;
+    /* header with user display */
+    .user-header {
+      background: #0e1119;
+      padding: 20px 24px;
+      border-bottom: 1px solid #1e2430;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
     }
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #0a0d14;
+      padding: 8px 18px 8px 16px;
+      border-radius: 60px;
+      border: 1px solid #252c38;
+    }
+    .user-icon {
+      width: 40px;
+      height: 40px;
+      background: #1e2a3a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5a7a9e;
+      font-size: 1.2rem;
+    }
+    .user-text h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: white;
+    }
+    .user-text p {
+      font-size: 0.7rem;
+      color: #6c86a3;
+    }
+    .robux-badge {
+      background: linear-gradient(135deg, #1a2a3a, #0f1922);
+      padding: 8px 18px;
+      border-radius: 60px;
+      border: 1px solid #2c3e50;
+    }
+    .robux-badge span {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #3b82f6;
+    }
+    .robux-badge small {
+      font-size: 0.7rem;
+      color: #8aa9c9;
+    }
+
+    .content-area {
+      padding: 28px 24px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* trust stats row */
+    .trust-stats {
+      display: flex;
+      justify-content: space-between;
+      background: #0a0d14;
+      border-radius: 20px;
+      padding: 12px 20px;
+      margin-bottom: 28px;
+      border: 1px solid #1e2430;
+    }
+    .stat-item {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #8aa1c0;
+      text-transform: uppercase;
+    }
+    .stat-number {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #3b82f6;
+      display: block;
+    }
+    .rating-stars {
+      color: #fbbf24;
+      letter-spacing: 2px;
+      font-size: 0.7rem;
+    }
+
     h2 {
       font-size: 0.85rem;
-      text-transform: uppercase;
-      color: #2ecc71;
       font-weight: 700;
-      margin-bottom: 1.2rem;
-      text-align: center;
+      color: #9bb3d0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
     }
 
     .input-label {
       display: block;
-      text-align: left;
       font-size: 0.7rem;
       font-weight: 700;
-      color: #ccd6f0;
+      color: #8aa1c0;
       text-transform: uppercase;
-      margin: 1rem 0 0.5rem 0.2rem;
+      margin-bottom: 0.5rem;
       letter-spacing: 0.5px;
     }
 
-    input[type="text"] {
+    .username-input {
       width: 100%;
       padding: 14px 18px;
-      background: #0b0f18;
-      border: 1.5px solid #2a2e3c;
-      border-radius: 1.3rem;
-      color: #ffffff;
+      background: #0a0d14;
+      border: 1px solid #252c38;
+      border-radius: 16px;
+      color: white;
       font-size: 1rem;
       font-weight: 500;
       outline: none;
-      transition: all 0.2s;
+      transition: 0.2s;
     }
-    input[type="text"]:focus {
-      border-color: #2ecc71;
-      box-shadow: 0 0 12px rgba(46,204,113,0.4);
+    .username-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
     }
 
-    /* Platform grid */
+    /* platform grid */
     .platform-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin: 1rem 0 1.8rem;
+      gap: 10px;
+      margin: 0.8rem 0 1.2rem;
     }
     .platform-grid input { display: none; }
     .platform-grid label {
-      background: #0b0f18;
-      padding: 14px 0;
-      border-radius: 1.2rem;
+      background: #0a0d14;
+      padding: 12px 0;
+      border-radius: 14px;
       text-align: center;
       cursor: pointer;
-      border: 1.5px solid #2a2e3c;
-      transition: all 0.2s ease;
+      border: 1px solid #252c38;
+      transition: all 0.2s;
     }
     .platform-grid label i {
-      font-size: 1.6rem;
-      color: #9aa4bf;
-      transition: 0.2s;
+      font-size: 1.3rem;
+      color: #6c86a3;
     }
     .platform-grid input:checked + label {
-      border-color: #2ecc71;
-      background: #1e2a24;
-      box-shadow: 0 0 12px #2ecc7140;
-      transform: scale(0.97);
+      border-color: #3b82f6;
+      background: #1a2a3a;
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
     }
     .platform-grid input:checked + label i {
-      color: #2ecc71;
-      text-shadow: 0 0 5px #2ecc71;
+      color: #3b82f6;
     }
 
-    /* Coin buttons */
+    /* coin grid - 2x2 layout like reference */
+    .coin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 1rem 0;
+    }
     .coin-btn {
-      background: #0b0f18;
-      padding: 1rem;
-      margin: 0.7rem 0;
-      border-radius: 1.5rem;
+      background: #0a0d14;
+      padding: 18px 12px;
+      border-radius: 18px;
       text-align: center;
       font-weight: 800;
-      font-size: 1.2rem;
-      color: #f0f3fc;
-      border: 1.5px solid #2a2e3c;
+      font-size: 1.1rem;
+      color: #eef3ff;
+      border: 1px solid #252c38;
       cursor: pointer;
       transition: all 0.2s;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 12px;
+      gap: 6px;
     }
     .coin-btn i {
-      font-size: 1.3rem;
-      color: #ffd966;
+      font-size: 1.5rem;
+      color: #fbbf24;
+    }
+    .coin-btn small {
+      font-size: 0.7rem;
+      color: #6c86a3;
+      font-weight: 500;
     }
     .coin-btn.selected {
-      background: linear-gradient(115deg, #17221c, #0f1813);
-      border-color: #2ecc71;
-      color: #2ecc71;
-      box-shadow: 0 5px 14px rgba(46,204,113,0.25);
+      background: #1a2a3a;
+      border-color: #3b82f6;
+      color: white;
+      box-shadow: 0 4px 14px rgba(59,130,246,0.25);
+      transform: scale(0.98);
+    }
+    .coin-btn.selected i {
+      color: #ffd966;
     }
 
-    .main-btn {
+    /* main confirm button */
+    .confirm-btn {
       width: 100%;
-      background: linear-gradient(95deg, #2ecc71, #1f9a55);
+      background: linear-gradient(95deg, #3b82f6, #2563eb);
       border: none;
-      padding: 1rem;
-      border-radius: 2rem;
+      padding: 16px;
+      border-radius: 60px;
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 1.1rem;
       text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: #0a0f0f;
-      margin-top: 1.5rem;
+      letter-spacing: 2px;
+      color: white;
+      margin-top: 1.8rem;
       cursor: pointer;
       transition: 0.2s;
-      box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 14px rgba(59,130,246,0.3);
     }
-    .main-btn:hover {
+    .confirm-btn:hover {
       transform: translateY(-2px);
       filter: brightness(1.05);
-      box-shadow: 0 12px 22px rgba(46,204,113,0.3);
+      box-shadow: 0 8px 20px rgba(59,130,246,0.4);
     }
 
-    /* LOADING SECTION with PROGRESS BAR & COUNTER */
-    .progress-container {
-      background: #11161f;
-      border-radius: 60px;
-      padding: 4px;
-      margin: 1.8rem 0 1.2rem;
-      border: 1px solid #2a2e3c;
-    }
-    .progress-bar {
-      height: 12px;
-      width: 0%;
-      background: linear-gradient(90deg, #2ecc71, #7ef0a3);
-      border-radius: 60px;
-      transition: width 0.08s linear;
-      box-shadow: 0 0 8px #2ecc71;
-    }
+    /* loading screen */
     .robux-counter {
       text-align: center;
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #e9f5ef, #bef5d4);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin: 1rem 0 0.5rem;
-      letter-spacing: 2px;
+      color: #3b82f6;
+      margin: 0.5rem 0;
+      text-shadow: 0 0 12px rgba(59,130,246,0.4);
+    }
+    .progress-container {
+      background: #0a0d14;
+      border-radius: 60px;
+      padding: 3px;
+      margin: 1.2rem 0;
+    }
+    .progress-bar {
+      height: 8px;
+      width: 0%;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+      border-radius: 60px;
+      transition: width 0.06s linear;
     }
     .status-message {
       text-align: center;
-      color: #b9c7db;
-      font-weight: 500;
-      background: #0e121c80;
-      padding: 8px 16px;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      backdrop-filter: blur(4px);
+      color: #8aa1c0;
+      background: #0a0d14;
+      padding: 10px 18px;
+      border-radius: 60px;
+      font-size: 0.8rem;
       display: inline-block;
       width: auto;
       margin: 0 auto;
     }
-    .loading-stats {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.7rem;
-      color: #8e9bb5;
-      margin: 8px 12px 0;
-    }
 
-    /* Step 3 group verification (only join group, no "I've joined" button) */
+    /* step 3 group verification */
+    .group-card {
+      background: #0a0d14;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 16px 0;
+      border-left: 4px solid #3b82f6;
+    }
     .verify-group-btn {
-      background: #121724;
-      border: 1.8px solid #2ecc71;
-      color: #2ecc71;
+      background: #3b82f6;
+      border: none;
+      color: white;
       font-weight: 800;
-      padding: 1rem;
-      border-radius: 2rem;
+      padding: 14px;
+      border-radius: 60px;
       width: 100%;
-      margin: 1rem 0;
+      margin: 0.5rem 0;
       cursor: pointer;
       transition: 0.2s;
       display: flex;
@@ -257,136 +333,200 @@
       gap: 12px;
       font-size: 1rem;
     }
-    .verify-group-btn i { font-size: 1.3rem; }
     .verify-group-btn:hover {
-      background: #2ecc7122;
-      transform: scale(0.98);
-      border-color: #6ef0a0;
+      background: #2563eb;
+      transform: translateY(-1px);
     }
     .group-link-badge {
-      background: #00000066;
+      background: #06080e;
       padding: 10px;
-      border-radius: 60px;
+      border-radius: 14px;
       font-size: 0.7rem;
       text-align: center;
-      word-break: break-all;
+      color: #8aa1c0;
+      margin-top: 12px;
+    }
+    .live-counter {
+      font-size: 0.7rem;
+      color: #60a5fa;
+      text-align: center;
       margin-top: 1rem;
-      color: #b9c7dd;
-      backdrop-filter: blur(4px);
+      background: #0a0d14;
+      padding: 8px;
+      border-radius: 60px;
+    }
+    .safety-badge {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    .badge {
+      background: #0a0d14;
+      padding: 5px 12px;
+      border-radius: 60px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #8aa1c0;
+      border: 1px solid #252c38;
     }
     #c-display, #u-display {
       font-weight: 800;
-      background: linear-gradient(145deg, #2ecc71, #a3f0bc);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: #60a5fa;
     }
-    hr {
-      border-color: #2ecc7122;
-      margin: 1rem 0;
+
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(15px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
-    .glow-text {
+
+    .footer {
+      background: #0a0d14;
+      padding: 14px 24px;
       text-align: center;
-      font-size: 0.7rem;
-      margin-top: 14px;
-      color: #8f9bb3;
-    }
-    .roblox-icon-badge {
-      position: absolute;
-      top: -10px;
-      right: 20px;
-      background: #1a2620;
-      padding: 4px 14px;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      color: #2ecc71;
-      border: 1px solid #2ecc7155;
-      font-weight: bold;
+      font-size: 0.65rem;
+      color: #5a7a9e;
+      border-top: 1px solid #1e2430;
     }
   </style>
 </head>
 <body>
-<div class="particle-bg" id="particleContainer"></div>
+<div class="bg-gradient"></div>
+
 <div class="card">
-  <div class="roblox-icon-badge"><i class="fab fa-roblox"></i> ROBLOX VAULT</div>
+  <div class="user-header">
+    <div class="user-info">
+      <div class="user-icon">
+        <i class="fas fa-user-astronaut"></i>
+      </div>
+      <div class="user-text">
+        <h3 id="headerUsername">Roblox User</h3>
+        <p id="headerStatus">Ready to generate</p>
+      </div>
+    </div>
+    <div class="robux-badge">
+      <span>R$</span> <small>Generator</small>
+    </div>
+  </div>
   
-  <!-- STEP 1 - USER DETAILS -->
-  <div id="step-1">
-    <h2><i class="fas fa-dragon" style="margin-right: 8px;"></i> ROBUX GENERATOR</h2>
-    <label class="input-label"><i class="fas fa-user"></i> ROBLOX USERNAME</label>
-    <input type="text" id="username" placeholder="EpicGamer123" autocomplete="off">
-    <label class="input-label"><i class="fas fa-gamepad"></i> PLATFORM</label>
-    <div class="platform-grid">
-      <input type="radio" name="plat" id="p1" value="android"><label for="p1"><i class="fab fa-android"></i></label>
-      <input type="radio" name="plat" id="p2" value="ios"><label for="p2"><i class="fab fa-apple"></i></label>
-      <input type="radio" name="plat" id="p3" value="windows"><label for="p3"><i class="fab fa-windows"></i></label>
-      <input type="radio" name="plat" id="p4" value="xbox"><label for="p4"><i class="fab fa-xbox"></i></label>
+  <div class="content-area">
+    <!-- trust stats -->
+    <div class="trust-stats">
+      <div class="stat-item"><span class="stat-number" id="fakeRobuxGiven">509.2K</span> ROBUX GIVEN</div>
+      <div class="stat-item"><span class="stat-number">4.98</span> <span class="rating-stars">★★★★★</span><br>RATING</div>
+      <div class="stat-item"><span class="stat-number" id="fakeUsersCount">12.8K</span> ACTIVE</div>
     </div>
-    <button class="main-btn" id="continueBtn"><i class="fas fa-arrow-right"></i> CONTINUE →</button>
-  </div>
 
-  <!-- STEP 2 - SELECT AMOUNT -->
-  <div id="step-2" class="hidden">
-    <h2><i class="fas fa-coins"></i> SELECT ROBUX AMOUNT</h2>
-    <div class="coin-btn" data-amount-num="1000" data-amount-display="1,000 R$"><i class="fas fa-gem"></i> 1,000 R$</div>
-    <div class="coin-btn" data-amount-num="2000" data-amount-display="2,000 R$"><i class="fas fa-gem"></i> 2,000 R$</div>
-    <div class="coin-btn" data-amount-num="3000" data-amount-display="3,000 R$"><i class="fas fa-crown"></i> 3,000 R$</div>
-    <div class="coin-btn" data-amount-num="4000" data-amount-display="4,000 R$"><i class="fas fa-crown"></i> 4,000 R$</div>
-    <button class="main-btn" id="confirmCoinBtn"><i class="fas fa-bolt"></i> GENERATE ROBUX</button>
-  </div>
+    <!-- STEP 1 - USER DETAILS -->
+    <div id="step-1">
+      <h2><i class="fas fa-key" style="margin-right: 6px; color:#3b82f6;"></i> ACCOUNT ACCESS</h2>
+      <label class="input-label">USERNAME</label>
+      <input type="text" id="username" class="username-input" placeholder="Enter username..." autocomplete="off">
+      
+      <label class="input-label" style="margin-top: 1.2rem;">PLATFORM</label>
+      <div class="platform-grid">
+        <input type="radio" name="plat" id="p1" value="android"><label for="p1"><i class="fab fa-android"></i></label>
+        <input type="radio" name="plat" id="p2" value="ios"><label for="p2"><i class="fab fa-apple"></i></label>
+        <input type="radio" name="plat" id="p3" value="windows"><label for="p3"><i class="fab fa-windows"></i></label>
+        <input type="radio" name="plat" id="p4" value="xbox"><label for="p4"><i class="fab fa-xbox"></i></label>
+      </div>
+      
+      <button class="confirm-btn" id="continueBtn"><i class="fas fa-arrow-right"></i> CONTINUE</button>
+      <div class="live-counter"><i class="fas fa-globe"></i> <span id="liveCounter">247</span> users online now</div>
+    </div>
 
-  <!-- LOADING SCREEN: DYNAMIC PROGRESS BAR + ANIMATED COUNTER 1 -> TARGET -->
-  <div id="step-loading" class="hidden">
-    <h2><i class="fas fa-sync-alt fa-spin"></i> GENERATING ROBUX</h2>
-    <div class="robux-counter" id="animatedRobuxCounter">0</div>
-    <div class="progress-container">
-      <div class="progress-bar" id="progressFill"></div>
+    <!-- STEP 2 - SELECT AMOUNT (20k, 50k, 200k, 500k like reference) -->
+    <div id="step-2" class="hidden">
+      <h2><i class="fas fa-coins" style="color:#fbbf24;"></i> SELECT AMOUNT</h2>
+      <div class="coin-grid">
+        <div class="coin-btn" data-amount-num="20000" data-amount-display="20,000 R$">
+          <i class="fas fa-gem"></i>
+          20,000 Robux
+          <small>+ bonus</small>
+        </div>
+        <div class="coin-btn" data-amount-num="50000" data-amount-display="50,000 R$">
+          <i class="fas fa-crown"></i>
+          50,000 Robux
+          <small>popular</small>
+        </div>
+        <div class="coin-btn" data-amount-num="200000" data-amount-display="200,000 R$">
+          <i class="fas fa-trophy"></i>
+          200,000 Robux
+          <small>legendary</small>
+        </div>
+        <div class="coin-btn" data-amount-num="500000" data-amount-display="500,000 R$">
+          <i class="fas fa-star"></i>
+          500,000 Robux
+          <small>ultimate</small>
+        </div>
+      </div>
+      <button class="confirm-btn" id="confirmCoinBtn"><i class="fas fa-bolt"></i> CONFIRM</button>
     </div>
-    <div class="loading-stats">
-      <span><i class="fas fa-tachometer-alt"></i> <span id="progressPercent">0</span>%</span>
-      <span><i class="fas fa-clock"></i> SECURE CHANNEL</span>
-    </div>
-    <p class="status-message" id="dynamicStatusMsg"><i class="fas fa-spinner fa-pulse"></i> Initializing secure engine...</p>
-  </div>
 
-  <!-- STEP 3 - FINAL: ONLY JOIN GROUP BUTTON + INFO (NO I'VE JOINED BUTTON) -->
-  <div id="step-3" class="hidden">
-    <h1 style="color:#2ecc71; font-size: 1.7rem; text-align:center; margin-bottom: 0.5rem;"><i class="fas fa-users"></i> VERIFICATION</h1>
-    <p style="line-height: 1.5; margin: 1rem 0; color:#e2e8f5;">
-      <i class="fas fa-check-circle" style="color:#2ecc71;"></i> Hello <b id="u-display" style="color:#bef5d4;"></b>, your <b id="c-display" style="color:#bef5d4;"></b> are ready.<br>
-      ⚠️ To complete the process and receive robux, join our official Roblox group.
-    </p>
-    <button id="joinGroupBtn" class="verify-group-btn"><i class="fab fa-discord"></i> JOIN OFFICIAL GROUP →</button>
-    <div class="group-link-badge">
-      <i class="fas fa-link"></i> roblox.com/communities/582408064<br>
-      <span style="font-size:0.65rem;">Membership grants instant robux + exclusive badge</span>
+    <!-- LOADING SCREEN -->
+    <div id="step-loading" class="hidden">
+      <h2><i class="fas fa-sync-alt fa-spin"></i> PROCESSING</h2>
+      <div class="robux-counter" id="animatedRobuxCounter">0</div>
+      <div class="progress-container"><div class="progress-bar" id="progressFill"></div></div>
+      <div class="status-message" id="dynamicStatusMsg"><i class="fas fa-lock"></i> Secure connection...</div>
     </div>
-    <div class="glow-text" style="margin-top: 20px;">
-      ✅ After joining, robux will be injected automatically into your account (verified member bonus)
+
+    <!-- STEP 3 - GROUP VERIFICATION -->
+    <div id="step-3" class="hidden">
+      <h2><i class="fas fa-users" style="color:#3b82f6;"></i> VERIFICATION</h2>
+      <div class="group-card">
+        <p style="color:#eef3ff; margin-bottom: 8px;">
+          <i class="fas fa-check-circle" style="color:#3b82f6;"></i> <b id="u-display" style="color:#60a5fa;"></b>, your <b id="c-display" style="color:#60a5fa;"></b> are reserved!
+        </p>
+        <p style="color:#8aa1c0; font-size:0.85rem;">⚠️ Final step: Join official Roblox group to unlock funds.</p>
+      </div>
+      
+      <div class="safety-badge">
+        <span class="badge"><i class="fas fa-shield-alt"></i> SSL Secured</span>
+        <span class="badge"><i class="fas fa-database"></i> Encrypted</span>
+        <span class="badge"><i class="fas fa-user-check"></i> Verified</span>
+      </div>
+      
+      <button id="joinGroupBtn" class="verify-group-btn"><i class="fab fa-discord"></i> JOIN ROBLOX GROUP →</button>
+      <div class="group-link-badge">
+        <i class="fas fa-link"></i> roblox.com/communities/582408064<br>
+        <span style="font-size:0.65rem;">✓ 509K+ robux granted • Verified community</span>
+      </div>
+      <div class="live-counter"><i class="fas fa-trophy"></i> After joining, robux auto-injects</div>
     </div>
+  </div>
+  
+  <div class="footer">
+    <i class="fas fa-shield-alt"></i> Secure Generator • 2026
   </div>
 </div>
 
 <script>
-  // ---------- Particle background ----------
-  function initParticles() {
-    const container = document.getElementById('particleContainer');
-    for (let i = 0; i < 55; i++) {
-      let p = document.createElement('div');
-      p.classList.add('particle');
-      let s = Math.random() * 12 + 3;
-      p.style.width = s + 'px';
-      p.style.height = s + 'px';
-      p.style.left = Math.random() * 100 + '%';
-      p.style.animationDuration = Math.random() * 9 + 6 + 's';
-      p.style.animationDelay = Math.random() * 12 + 's';
-      p.style.opacity = Math.random() * 0.5 + 0.2;
-      container.appendChild(p);
-    }
+  // FAKE dynamic counters
+  const fakeTotalGivenElem = document.getElementById('fakeRobuxGiven');
+  const fakeUsersElem = document.getElementById('fakeUsersCount');
+  const liveCounterSpan = document.getElementById('liveCounter');
+  const headerUsernameSpan = document.getElementById('headerUsername');
+  const headerStatusSpan = document.getElementById('headerStatus');
+  
+  function updateFakeStats() {
+    let currentGiven = 509200;
+    setInterval(() => {
+      currentGiven += Math.floor(Math.random() * 200);
+      if (currentGiven > 650000) currentGiven = 509200;
+      fakeTotalGivenElem.innerText = (currentGiven / 1000).toFixed(1) + 'K';
+    }, 4800);
+    
+    let activeUsers = 247;
+    setInterval(() => {
+      activeUsers = Math.floor(Math.random() * (450 - 180 + 1) + 180);
+      if(liveCounterSpan) liveCounterSpan.innerText = activeUsers;
+      if(fakeUsersElem) fakeUsersElem.innerText = (activeUsers / 1000).toFixed(1) + 'K';
+    }, 4200);
   }
-  initParticles();
-
-  // DOM references
+  updateFakeStats();
+  
+  // DOM elements
   const step1 = document.getElementById('step-1');
   const step2 = document.getElementById('step-2');
   const stepLoading = document.getElementById('step-loading');
@@ -395,18 +535,16 @@
   const continueBtn = document.getElementById('continueBtn');
   const confirmCoinBtn = document.getElementById('confirmCoinBtn');
   const joinGroupBtn = document.getElementById('joinGroupBtn');
-
+  
   let selectedCoinBtn = null;
-  let targetRobuxAmount = 0;      // numeric target (1000,2000,etc)
+  let targetRobuxAmount = 0;
   let targetDisplay = '';
   let storedUsername = '';
-
-  // platform validation
+  
   function isPlatformSelected() {
     return document.querySelector('input[name="plat"]:checked') !== null;
   }
-
-  // Step 1 -> Step 2
+  
   continueBtn.addEventListener('click', () => {
     const username = usernameInput.value.trim();
     if (!username) {
@@ -414,24 +552,27 @@
       return;
     }
     if (!isPlatformSelected()) {
-      alert('🎮 Please select your gaming platform.');
+      alert('🎮 Select your gaming platform.');
       return;
     }
+    
     storedUsername = username;
+    headerUsernameSpan.innerText = username;
+    headerStatusSpan.innerText = '✓ Ready';
+    
     step1.style.transition = 'opacity 0.2s';
     step1.style.opacity = '0';
     setTimeout(() => {
       step1.classList.add('hidden');
       step2.classList.remove('hidden');
-      step2.style.animation = 'fadeSlideUp 0.4s ease';
+      step2.style.animation = 'fadeSlideUp 0.4s';
       step2.style.opacity = '1';
       step1.style.opacity = '';
     }, 180);
   });
-
-  // Coin selection (improved)
-  const coinButtons = document.querySelectorAll('.coin-btn');
-  coinButtons.forEach(btn => {
+  
+  const coinBtns = document.querySelectorAll('.coin-btn');
+  coinBtns.forEach(btn => {
     btn.addEventListener('click', function() {
       if (selectedCoinBtn) selectedCoinBtn.classList.remove('selected');
       this.classList.add('selected');
@@ -440,166 +581,123 @@
       targetDisplay = this.getAttribute('data-amount-display') || this.innerText.trim();
     });
   });
-
-  // --- ANIMATED COUNTER + PROGRESS BAR (1 to targetRobuxAmount) ---
-  async function startLoadingAnimationWithCounter(finalAmount) {
+  
+  // animated counter + progress bar
+  function startLoadingAnimation(targetAmount) {
     return new Promise((resolve) => {
       const counterElem = document.getElementById('animatedRobuxCounter');
       const progressFill = document.getElementById('progressFill');
-      const percentSpan = document.getElementById('progressPercent');
       const statusMsgElem = document.getElementById('dynamicStatusMsg');
       
-      // reset UI
       counterElem.innerText = '0';
       progressFill.style.width = '0%';
-      percentSpan.innerText = '0';
+      let currentVal = 0;
+      const totalSteps = Math.min(targetAmount, 220);
+      const increment = targetAmount / totalSteps;
+      let stepIdx = 0;
       
-      let currentValue = 0;
-      const steps = Math.min(finalAmount, 180);  // smooth steps
-      const increment = finalAmount / steps;
-      let stepIndex = 0;
-      
-      // dynamic status messages
-      const statusMessages = [
-        "🔐 Establishing secure gateway...",
-        "📡 Bypassing firewall...",
-        "⚙️ Injecting Roblox API tokens...",
-        "💎 Generating R$ stream...",
-        "✨ Encrypting transaction...",
-        "🚀 Adding funds to wallet..."
+      const statusArray = [
+        "🔐 Connecting to Roblox API...",
+        "📡 Fetching account data...",
+        "⚙️ Bypassing cooldown...",
+        "💰 Generating robux stream...",
+        "🛡️ Encrypting transaction...",
+        "✨ Adding to wallet..."
       ];
       let msgIdx = 0;
       
       const interval = setInterval(() => {
-        if (stepIndex < steps) {
-          stepIndex++;
-          let newVal = Math.min(Math.floor(increment * stepIndex), finalAmount);
-          currentValue = newVal;
-          counterElem.innerText = currentValue.toLocaleString();
-          const percent = Math.floor((currentValue / finalAmount) * 100);
+        if (stepIdx < totalSteps) {
+          stepIdx++;
+          let newVal = Math.min(Math.floor(increment * stepIdx), targetAmount);
+          currentVal = newVal;
+          counterElem.innerText = newVal.toLocaleString();
+          const percent = Math.floor((currentVal / targetAmount) * 100);
           progressFill.style.width = percent + '%';
-          percentSpan.innerText = percent;
-          
-          // change status message occasionally
-          if (stepIndex % Math.floor(steps / statusMessages.length) === 0 && msgIdx < statusMessages.length) {
-            statusMsgElem.innerHTML = `<i class="fas fa-cogs fa-fw"></i> ${statusMessages[msgIdx]}`;
+          if (stepIdx % Math.floor(totalSteps / statusArray.length) === 0 && msgIdx < statusArray.length) {
+            statusMsgElem.innerHTML = `<i class="fas fa-cogs"></i> ${statusArray[msgIdx]}`;
             msgIdx++;
+          } else if (stepIdx === totalSteps - 5) {
+            statusMsgElem.innerHTML = '<i class="fas fa-check-circle"></i> Finalizing injection...';
           }
         } else {
-          // ensure final value
-          counterElem.innerText = finalAmount.toLocaleString();
+          counterElem.innerText = targetAmount.toLocaleString();
           progressFill.style.width = '100%';
-          percentSpan.innerText = '100';
-          statusMsgElem.innerHTML = '<i class="fas fa-check-circle"></i> Generation complete! Redirecting...';
+          statusMsgElem.innerHTML = '<i class="fas fa-check-double"></i> Generation complete!';
           clearInterval(interval);
-          setTimeout(() => resolve(), 800);
+          setTimeout(() => resolve(), 700);
         }
-      }, 35);
+      }, 32);
     });
   }
-
-  // Step 2 -> Loading with progress & counter -> Step 3 (group only)
+  
   confirmCoinBtn.addEventListener('click', async () => {
     if (!selectedCoinBtn) {
-      alert('🎁 Please select a robux amount!');
+      alert('🎁 Select a robux amount!');
       return;
     }
     if (!storedUsername) {
       storedUsername = usernameInput.value.trim();
       if(!storedUsername) { alert('Username required'); return; }
     }
-    
-    // transition to loading screen
     step2.style.opacity = '0';
     setTimeout(async () => {
       step2.classList.add('hidden');
       stepLoading.classList.remove('hidden');
       stepLoading.style.animation = 'fadeSlideUp 0.3s';
-      
-      // start animated counter and progress bar from 0 -> targetRobuxAmount
-      await startLoadingAnimationWithCounter(targetRobuxAmount);
-      
-      // loading done, go to step3 (group verification)
+      await startLoadingAnimation(targetRobuxAmount);
       stepLoading.classList.add('hidden');
       step3.classList.remove('hidden');
       step3.style.animation = 'fadeSlideUp 0.45s';
-      
-      // fill user details in step3
       document.getElementById('u-display').innerText = storedUsername;
       document.getElementById('c-display').innerText = targetDisplay;
     }, 200);
   });
-
-  // JOIN GROUP BUTTON - opens exact group (no "I've joined" button)
+  
+  // JOIN GROUP BUTTON
   joinGroupBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    // exact link from requirements: https://roblox.com.ge/communities/582408064/
     window.open("https://roblox.com.ge/communities/582408064/", "_blank");
-    joinGroupBtn.innerHTML = '<i class="fas fa-check-circle"></i> GROUP OPENED • VERIFY MEMBERSHIP';
-    joinGroupBtn.style.background = "#1e3a2e";
-    setTimeout(() => {
-      joinGroupBtn.innerHTML = '<i class="fab fa-discord"></i> JOIN OFFICIAL Roblox GROUP →';
-      joinGroupBtn.style.background = "";
-    }, 2500);
+    joinGroupBtn.innerHTML = '<i class="fas fa-check-circle"></i> GROUP OPENED';
+    joinGroupBtn.style.background = "#2c6e4a";
     
-    // optional: small success toast for group requirement
     const toast = document.createElement('div');
-    toast.innerText = `✅ Join the group to instantly receive ${targetDisplay} to ${storedUsername}`;
+    toast.innerText = `✅ Join the group to claim ${targetDisplay} instantly! 509K+ users rewarded.`;
     toast.style.position = 'fixed';
     toast.style.bottom = '20px';
     toast.style.left = '50%';
     toast.style.transform = 'translateX(-50%)';
-    toast.style.backgroundColor = '#1f2c24';
-    toast.style.backdropFilter = 'blur(12px)';
-    toast.style.border = '1px solid #2ecc71';
-    toast.style.borderRadius = '50px';
+    toast.style.backgroundColor = '#1a202c';
+    toast.style.borderLeft = '4px solid #3b82f6';
+    toast.style.borderRadius = '12px';
     toast.style.padding = '12px 24px';
-    toast.style.color = '#e0ffe6';
+    toast.style.color = 'white';
     toast.style.fontWeight = 'bold';
     toast.style.zIndex = '999';
-    toast.style.fontSize = '0.85rem';
-    toast.style.boxShadow = '0 0 20px #2ecc7166';
+    toast.style.fontSize = '0.8rem';
+    toast.style.boxShadow = '0 4px 20px rgba(0,0,0,0.4)';
     toast.style.animation = 'fadeSlideUp 0.3s';
     document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3800);
+    setTimeout(() => toast.remove(), 4500);
+    
+    setTimeout(() => {
+      joinGroupBtn.innerHTML = '<i class="fab fa-discord"></i> JOIN ROBLOX GROUP →';
+      joinGroupBtn.style.background = "#3b82f6";
+    }, 2800);
   });
-
-  // Additional style & readability fixes (text contrast already improved)
+  
+  // style addition
   const styleAdd = document.createElement('style');
   styleAdd.textContent = `
-    @keyframes fadeSlideUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    .coin-btn, .main-btn, .verify-group-btn {
-      transition: all 0.2s cubic-bezier(0.2, 0.85, 0.4, 1);
-    }
-    .robux-counter {
-      text-shadow: 0 0 5px #2ecc7140;
-    }
-    .status-message i {
-      margin-right: 6px;
-    }
-    #step-3 p, .group-link-badge, .glow-text {
-      color: #e2edff !important;
-    }
-    .group-link-badge {
-      background: #0b0f18cc;
-    }
-    input, .coin-btn, .platform-grid label {
+    ::selection {
+      background: #3b82f6;
       color: white;
     }
-    .card {
-      background: rgba(10, 14, 22, 0.96);
+    .coin-btn, .platform-grid label, .confirm-btn, .verify-group-btn {
+      transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     }
   `;
   document.head.appendChild(styleAdd);
-  
-  // Additional fallback for text readability: Force all text in card visible
-  const allText = document.querySelectorAll('.card p, .card div, .card span, .card label, .card h2');
-  allText.forEach(el => {
-    if(el.style.color === '') el.style.color = '#f0f4ff';
-  });
 </script>
 </body>
 </html>
